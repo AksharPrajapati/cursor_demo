@@ -18,18 +18,21 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold transition-colors w-full border-l-4
-        ${
-          selected
-            ? "border-blue-500 bg-blue-500/10 shadow-md pl-8"
-            : "border-transparent hover:bg-neutral-800/10 pl-4"
-        }
+      className={`relative flex items-center gap-3 px-4 py-3 rounded-xl font-semibold transition-colors w-full
+        ${selected ? "bg-blue-500/10" : "hover:bg-neutral-800/10"}
         ${sidebarOpen ? "justify-start" : "justify-center"}
         ${selected ? "text-blue-600" : "text-neutral-300"}`}
       style={selected ? { fontWeight: 700 } : {}}
     >
-      <span>{icon}</span>
-      {sidebarOpen && <span>{label}</span>}
+      {/* Left accent bar for selected item */}
+      {selected && (
+        <span
+          className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-blue-500"
+          aria-hidden="true"
+        />
+      )}
+      <span className="ml-1">{icon}</span>
+      {sidebarOpen && <span className="ml-1">{label}</span>}
     </button>
   );
 };
